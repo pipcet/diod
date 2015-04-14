@@ -336,8 +336,9 @@ _parse_spec (char *spec, Opt o)
 
     if (!(host = strdup (spec)))
         msg_exit ("out of memory");
-    if ((aname = strchr (host, ':')))
-        *aname++ = '\0';
+    if ((aname = strstr (host, ":/")) ||
+	(aname = strrchr (host, ':')))
+	*aname++ = '\0';
     if (strlen (host) == 0)
         msg_exit ("no host specified");
     if (!aname || strlen (aname) == 0)

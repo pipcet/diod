@@ -321,6 +321,9 @@ _uname2uid (char *uname)
 {
     struct passwd *pw;
 
+    if (strcmp(uname, "root") == 0)
+	return 0;
+
     if (!(pw = getpwnam (uname)))
         msg_exit ("could not look up uname='%s'", uname);
     return pw->pw_uid;
@@ -374,8 +377,12 @@ _parse_uname_access (Opt o)
     
     if (uname) {
         if (!(pw = getpwnam (uname)))
-            msg_exit ("could not look up uname='%s'", uname);
-        uname_uid = pw->pw_uid;
+	    if (strcmp (uname, "root") == 0)
+		uname_uid = 0;
+	    else
+		msg_exit ("could not look up uname='%s'", uname);
+	else
+	    uname_uid = pw->pw_uid;
     }
     if (access && opt_scanf (o, "access=%d", &access_uid)) {
         if (!(pw = getpwuid (access_uid)))

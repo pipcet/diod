@@ -6,8 +6,9 @@
 ### Building on Debian 
 
 ```
-sudo apt-get install liblua5.1-dev libmunge-dev libwrap0-dev libcap-dev
-./configure CPPFLAGS="-I/usr/include/lua5.1" --with-lua-suffix=5.1
+sudo apt-get install liblua5.1-0-dev libmunge-dev libwrap0-dev libcap-dev
+sh autogen.sh
+./configure
 make
 make check
 ```

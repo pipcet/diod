@@ -6,7 +6,8 @@
 ### Building on Debian 
 
 ```
-sudo apt-get install liblua5.1-0-dev libmunge-dev libwrap0-dev libcap-dev
+sudo apt-get install liblua5.1-0-dev libmunge-dev libwrap0-dev
+sudo apt-get install libcap-dev libattr1-dev
 sh autogen.sh
 ./configure
 make

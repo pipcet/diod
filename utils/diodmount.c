@@ -282,7 +282,7 @@ main (int argc, char *argv[])
                 break;
         }
         if (h) { /* create new 'spec' string identifying successful host */
-            char *p = strchr (spec , ':');
+            char *p = strrchr (spec , ':');
             int len = strlen (h) + (p ? strlen (p) : 0) + 1;
 
             if (!(nspec = malloc (len)))
@@ -333,8 +333,9 @@ _parse_spec (char *spec, Opt o)
 
     if (!(host = strdup (spec)))
         msg_exit ("out of memory");
-    if ((aname = strchr (host, ':')))
-        *aname++ = '\0';
+    if ((aname = strstr (host, ":/")) ||
+	(aname = strrchr (host, ':')))
+	*aname++ = '\0';
     if (strlen (host) == 0)
         msg_exit ("no host specified");
     if (!aname || strlen (aname) == 0)

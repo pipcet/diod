@@ -280,7 +280,7 @@ diod_sock_listen (List l, struct pollfd **fdsp, int *nfdsp)
                 msg ("out of memory");
                 goto done;
             }
-            port = strchr (host, ':');
+            port = strrchr (host, ':');
             NP_ASSERT (port != NULL);
             *port++ = '\0';
             if ((n = _setup_one_inet (host, port, fdsp, nfdsp)) == 0) {
@@ -503,7 +503,7 @@ diod_sock_connect (char *name, int flags)
                 err ("diod_sock_connect %s", name);
             goto done;
         }
-        if (!(port = strchr (host, ':'))) {
+        if (!(port = strrchr (host, ':'))) {
             errno = EINVAL;
             if (!(flags & DIOD_SOCK_QUIET))
                 err ("diod_sock_connect %s", name);
